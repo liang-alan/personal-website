@@ -1,8 +1,94 @@
-# React + Vite
+# Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a single-page personal portfolio project built with React and Vite. It allows users to showcase their projects and personal information, which can be edited and fetched from a server.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+personal-website
+├── src
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── index.html
+│   ├── components
+│   │   ├── Header.tsx
+│   │   ├── Portfolio.tsx
+│   │   ├── ProjectCard.tsx
+│   │   ├── Editor.tsx
+│   │   └── Footer.tsx
+│   ├── api
+│   │   └── client.ts
+│   ├── hooks
+│   │   └── useProfile.ts
+│   ├── styles
+│   │   └── main.css
+│   └── types
+│       └── index.ts
+├── server
+│   ├── index.ts
+│   └── data
+│       └── profile.json
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm (Node package manager)
+
+### Installation
+
+1. Clone the repository:
+
+   ```
+   git clone <repository-url>
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd personal-website
+   ```
+
+3. Install the dependencies:
+
+   ```
+   npm install
+   ```
+
+### Running the Application
+
+To start the development server, run:
+
+```
+npm run dev
+```
+
+This will start the Vite development server, and you can view the application in your browser at `http://localhost:3000`.
+
+### Building for Production
+
+To create a production build of the application, run:
+
+```
+npm run build
+```
+
+The built files will be generated in the `dist` folder.
+
+### API
+
+The application fetches user profile data from a server. The server is set up using Express and serves the profile data from the `server/data/profile.json` file.
+
+### Contributing
+
+Feel free to submit issues or pull requests if you have suggestions or improvements for the project.
+
+### License
+
+This project is licensed under the MIT License.

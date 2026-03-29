@@ -1,0 +1,149 @@
+import React, { useEffect, useState, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const links = [
+    { id: 'work', label: 'Work' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'blog', label: 'Blog' },
+    { id: 'contact', label: 'Contact' },
+];
+
+const Header: React.FC = () => {
+    const [active, setActive] = useState<string>('portfolio');
+
+    const debounceTimer = useRef<number | null>(null);
+
+    useEffect(() => {
+        const sections = Array.from(document.querySelectorAll('main section[id]')) as HTMLElement[];
+        if (!sections.length) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActive(entry.target.id);
+                    }
+                });
+            },
+            { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+        );
+
+        sections.forEach((s) => observer.observe(s));
+
+        const updateActiveFromView = () => {
+            const secs = Array.from(document.querySelectorAll('main section[id]')) as HTMLElement[];
+            if (!secs.length) return;
+            const viewportMiddle = window.innerHeight / 2;
+            let best: HTMLElement | null = null;
+            let bestDist = Infinity;
+            secs.forEach((s) => {
+                const rect = s.getBoundingClientRect();
+                const mid = rect.top + rect.height / 2;
+                const dist = Math.abs(mid - viewportMiddle);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = s;
+                }
+            });
+            if (best) setActive((best as HTMLElement).id);
+        };
+
+        const debounced = () => {
+            if (debounceTimer.current) window.clearTimeout(debounceTimer.current);
+            // @ts-ignore
+            debounceTimer.current = window.setTimeout(() => {
+                updateActiveFromView();
+            }, 40);
+        };
+
+        window.addEventListener('scroll', debounced);
+        window.addEventListener('hashchange', debounced);
+        window.addEventListener('popstate', debounced);
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('scroll', debounced);
+            window.removeEventListener('hashchange', debounced);
+            window.removeEventListener('popstate', debounced);
+            if (debounceTimer.current) window.clearTimeout(debounceTimer.current);
+        };
+    }, []);
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const onTitleClick = (e: React.MouseEvent) => {
+        // if we're on a blog page and have a lastScroll, navigate back to root and restore
+        if (location.pathname.startsWith('/blog')) {
+            e.preventDefault();
+            try {
+                const raw = sessionStorage.getItem('lastScroll');
+                if (raw) {
+                    const { scrollY, hash } = JSON.parse(raw);
+                    navigate('/');
+                    setTimeout(() => {
+                        if (hash) window.location.hash = hash;
+                        window.scrollTo({ top: scrollY || 0, behavior: 'smooth' });
+                    }, 50);
+                    return;
+                }
+            } catch (err) {
+                // ignore
+            }
+            navigate('/');
+            return;
+        }
+    };
+
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        // if on a blog page, navigate back to root and then set the hash / scroll
+        if (location.pathname.startsWith('/blog')) {
+            e.preventDefault();
+            try {
+                // store lastScroll so BlogPost back can still restore if needed
+                sessionStorage.setItem(
+                    'lastScroll',
+                    JSON.stringify({ scrollY: 0, hash: `#${id}` })
+                );
+            } catch (err) {
+                // ignore
+            }
+            navigate('/');
+            setTimeout(() => {
+                window.location.hash = `#${id}`;
+                // ensure header active updates
+                setActive(id);
+                // smooth scroll to element
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 60);
+            return;
+        }
+
+        // not on blog page — allow normal anchor behavior but update active immediately
+        setActive(id);
+    };
+
+    return (
+        <header>
+            <h1><a href="#top" onClick={onTitleClick}>Alan Liang</a></h1>
+            <nav>
+                <ul>
+                    {links.map((l) => (
+                        <li key={l.id}>
+                            <a
+                                className={active === l.id ? 'active' : ''}
+                                href={`#${l.id}`}
+                                onClick={(e) => handleNavClick(e, l.id)}
+                            >
+                                {l.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </header>
+    );
+};
+
+export default Header;
