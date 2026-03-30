@@ -4,7 +4,7 @@
   "description": "I am a undergraduate student at the University of Wisconsin-Madison pursuing majors in Computer Science and Enviornmental Studies with certificates in Data Science and Game Design. I am excited to learn new skills and apply them to tackle world problems. I'm passionate about fullstack development, AI governance, and environmental justice. Let's connect and explore the different potentials of technology within our society!",
   "introImage": "/api/images/profile.png",
   "email": "alanliang905@gmail.com",
-  "socialMedia": {
+  "social": {
     "linkedin": "https://www.linkedin.com/in/alan-liang5/",
     "github": "https://github.com/liang-alan"
   },
@@ -12,14 +12,14 @@
     {
   "title": "Project One",
   "description": "A brief description of Project One.",
-  "technologies": ["React", "Node.js", "Express"],
+  "tags": ["React", "Node.js", "Express"],
   "link": "https://github.com/johndoe/project-one",
   "image": "/api/images/project-1.svg"
     },
     {
   "title": "Project Two",
   "description": "A brief description of Project Two.",
-  "technologies": ["Vue", "Firebase"],
+  "tags": ["Vue", "Firebase"],
   "link": "https://github.com/johndoe/project-two",
   "image": "/api/images/project-2.svg"
     }
@@ -28,7 +28,19 @@
   "work": [
     {
       "company": "Amazon",
-      "title": "Software Development Intern",
+      "title": "Incoming Software Engineer I",
+      "location": "",
+      "start": "Sep 2026",
+      "end": " ",
+      "responsibilities": [
+
+      ],
+      "image": "/api/images/amazon.png"
+    },
+    {
+      "company": "Amazon",
+      "title": "Software Development Engineer Intern",
+      "location": "Sunnyvale, CA",
       "start": "May 2025",
       "end": "August 2025",
       "responsibilities": [
@@ -37,20 +49,49 @@
         "Delivered a full-stack, end-to-end project from design to production in an agile environment",
         "Implemented comprehensive unit tests, achieving 95%+ test coverage to ensure code quality and stability",
         "Set up user metrics using AWS Cloudwatch to track adoption and identify bottlenecks"
-      ]
-  ,
-  "image": "/api/images/amazon.png"
+      ],
+      "image": "/api/images/amazon.png"
     },
     {
-      "company": "Startup Inc",
-      "title": "Frontend Engineer",
-      "start": "Mar 2018",
-      "end": "Dec 2019",
+      "company": "University of Wisconsin Madison",
+      "title": "Peer Mentor - COMP SCI 571: Building User interfaces",
+      "location": "Madison, WI",
+      "start": "September 2024",
+      "end": "May 2025",
       "responsibilities": [
-        "Implemented responsive UIs and worked on performance optimizations."
-      ]
-  ,
-  "image": "/api/images/project-2.svg"
+        "Engaged with students in office hours on UI/UX development tools : HTML, CSS, JS, React.js, React Native, Figma.",
+        "Guided students to develop user-centric design principles in web and mobile design",
+        "Fostered a positive learning environment in a course of 300+ students"
+      ],
+      "image": "/api/images/uwcdis.jpeg"
+    },
+    {
+      "company": "University of Wisconsin Sea Grant",
+      "title": "Beach Ambassador",
+      "location": "Milwaukee, WI",
+      "start": "June 2023",
+      "end": "June 2024",
+      "responsibilities": [
+        "Developed the official Milwaukee Beach Ambassador Website using HTML, Wordpress, and user focused design principles",
+        "Interacted with 500+ beachgoers to spread awareness about beach safety along the Milwaukee lakefront",
+        "Engaged with the community at citywide events promoting environmental justice and education",
+        "Read more: https://www.seagrant.wisc.edu/news/summer-scholars-dip-toes-into-water-related-careers-part-one/"
+      ],
+      "image": "/api/images/seagrant.jpeg"
+    },
+    {
+      "company": "Mathnasium",
+      "title": "Instructor",
+      "location": "Whitefish Bay, WI",
+      "start": "January 2021",
+      "end": "January 2023",
+      "responsibilities": [
+        "Worked with a dynamic team of instructors to support the learning of over 100 students every day",
+        "Mastered socratic questioning to guide kids towards a metacognitive understanding of mathematical processes",
+        "Actively engaged with the community at local events to spark interest in mathematics",
+        "Guided and trained new employees through the process of effectively tutoring"
+      ],
+      "image": "/api/images/mathnasium.png"
     }
   ],
   "blogs": [

@@ -1,5 +1,5 @@
 # Reflection on Computer Science Culture Among Students
-*August 10, 2025*
+*August 10, 2025 | San Jose, CA*
 
 I’m writing this on the plane as I depart for my 12-week software development internship in the Bay Area this past summer. The experience was enriching and transformative. While I deeply enjoyed my work, I found the general culture among students disturbing while I was there. In this essay, I will outline why I found the culture disturbing and the revelations I have come upon after spending 3 months there. I will convince you why we need to rethink the way we, as students and professionals of computer science, view computer science.
 
