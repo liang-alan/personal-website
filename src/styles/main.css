@@ -410,6 +410,49 @@ a:hover {
     color: #ffffff;
 }
 
+.projects-search {
+  margin: 1rem 0 1.5rem;
+}
+
+.projects-search-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 700px;
+  padding: 0.65rem 0.75rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.projects-search-input {
+  flex: 1;
+  min-width: 180px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font: inherit;
+}
+
+.projects-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.selected-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+}
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;
@@ -428,23 +471,39 @@ a:hover {
   background: rgba(255, 255, 255, 0.14);
   color: #f3f7fb;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
 }
 
-.projects-search {
-  margin: 1rem 0 1.5rem;
+.project-tag.active {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.projects-search-input {
-  width: 100%;
-  max-width: 420px;
-  padding: 0.75rem 1rem;
+.project-date {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: -0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.projects-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.load-more-button {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.08);
   color: white;
-  outline: none;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
-.projects-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+.load-more-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
 }

@@ -10,18 +10,69 @@
   },
   "projects": [
     {
-  "title": "Project One",
-  "description": "A brief description of Project One.",
-  "tags": ["React", "Node.js", "Express"],
-  "link": "https://github.com/johndoe/project-one",
-  "image": "/api/images/project-1.svg"
+      "title": "SpotLight",
+      "date": "July 2024",
+      "description": "This 2nd place hack for the Empower 2.0 Hackathon SonicBids track aims to help musicians find a place for them to shine.",
+      "tags": ["React", "Firebase", "Hackathon", "Google Maps", "Javascript"],
+      "link": "https://github.com/liang-alan/spotlight",
+      "image": "/api/images/project/spotlight.jpeg"
     },
     {
-  "title": "Project Two",
-  "description": "A brief description of Project Two.",
-  "tags": ["Vue", "Firebase"],
-  "link": "https://github.com/johndoe/project-two",
-  "image": "/api/images/project-2.svg"
+      "title": "EmptyFridge Plus",
+      "date": "June 2024",
+      "description": "EmptyFridge Plus allows users to input ingredients they have in their fridge to generate recipes for them using the Spoonacular API. This is the upgraded version of a previous hackathon project",
+      "tags": ["React Native", "Mobile", "REST API", "Javascript"],
+      "link": "https://github.com/liang-alan/empty-fridge-plus",
+      "image": "/api/images/project/empty-fridge-plus.jpeg"
+    },
+    {
+      "title": "Personal Website v1",
+      "date": "January 2024",
+      "description": "I made this website completely from scratch as a test of the HTML and CSS skills. This site is now deprecated and no longer available",
+      "tags": ["HTML", "CSS"],
+      "link": "",
+      "image": "/api/images/project/personal-site.png"
+    },
+    {
+      "title": "Centsible",
+      "date": "Novemeber 2023",
+      "description": "Centsible is your sensible solution to splitting the bill. Rather than scrolling through your Venmo transaction histories, all the information can be stored in Centsible",
+      "tags": [
+        "HTML",
+        "Javascript",
+        "MongoDB",
+        "Hackathon"
+      ],
+      "link": "https://devpost.com/software/productivity-portal",
+      "image": "/api/images/project/centsible.png"
+    },
+    {
+      "title": "Carcinisation",
+      "date": "October 2023",
+      "description": "Carcinisation is a resource management game I made in a one week game design sprint. This was my first exposure to game dev. Click on the github repo to play a demo!",
+      "tags": [
+        "Javascript",
+        "Game Dev",
+        "p5.js"
+      ],
+      "link": "https://github.com/liang-alan/Colony2.0",
+      "image": "/api/images/project/carcinisation.png"
+    },
+    {
+      "title": "Beach Ambassador Website",
+      "date": "August 2023",
+      "description": "This website is accessible and allows all users to learn about the program, how to get involved, and how to stay safe around our waters.",
+      "tags": ["HTML", "CSS", "Javascript", "Wordpress"],
+      "link": "https://beachambassadorsmke.org/",
+      "image": "/api/images/project/beach-ambassador.png"
+    },
+    {
+      "title": "Empty Fridge",
+      "date": "March 2023",
+      "description": "EmptyFridge is an innovative solution to tackle food waste. It allows users to find tasty recipes to use up leftover ingredients. This project was awarded the Best Sustainability Hack award by Avanade.",
+      "tags": ["HTML", "CSS", "Javascript", "Hackathon"],
+      "link": "https://devpost.com/software/emptyfridge",
+      "image": "/api/images/project/empty-fridge.jpg"
     }
   ]
   ,

@@ -1,6 +1,7 @@
 interface Project {
   id?: string;
   title: string;
+  date: string;
   description: string;
   link?: string;
   tags: string[];
