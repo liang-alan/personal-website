@@ -1,7 +1,7 @@
 {
   "name": "Alan Liang",
   "title": "Student",
-  "description": "I am a undergraduate student at the University of Wisconsin-Madison pursuing majors in Computer Science and Enviornmental Studies with certificates in Data Science and Game Design. I am excited to learn new skills and apply them to tackle world problems. I'm passionate about fullstack development, AI governance, and environmental justice. Let's connect and explore the different potentials of technology within our society!",
+  "description": "I am a undergraduate student at the University of Wisconsin-Madison pursuing majors in Computer Science and Enviornmental Studies with a certificate in Data Science. I am excited to learn new skills and apply them to tackle world problems. I'm passionate about fullstack development, AI governance, and environmental justice. Let's connect and explore the different potentials of technology within our society!",
   "introImage": "/api/images/profile.png",
   "email": "alanliang905@gmail.com",
   "social": {
@@ -9,6 +9,14 @@
     "github": "https://github.com/liang-alan"
   },
   "projects": [
+    {
+      "title": "Astrologic",
+      "date": "December 2024",
+      "description": "This is a mini puzzle game I made for a final group project about connecting stars to solve puzzles to create a symphony of stars!",
+      "tags": ["Game Maker Language", "Game Dev", "Music"],
+      "link": "https://github.com/JesseYang1017/Star-Farm",
+      "image": "/api/images/project/astrologic.png"
+    },
     {
       "title": "SpotLight",
       "date": "July 2024",
