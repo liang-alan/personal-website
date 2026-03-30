@@ -59,7 +59,7 @@ const App: React.FC = () => {
     };
   }, []);
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/personal-website/">
       <div id="top">
         <Header />
         <main>
