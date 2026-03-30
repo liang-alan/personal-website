@@ -2,6 +2,9 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,6 +13,14 @@ const app = express();
 const PORT = Number(process.env.PORT) || 5001;
 
 app.use(express.json());
+
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'https://liang-alan.github.io'
+    ]
+}));
 
 // serve images from data/images at /api/images
 app.use('/api/images', express.static(path.join(__dirname, 'data', 'images')));

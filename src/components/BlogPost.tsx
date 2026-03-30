@@ -5,6 +5,8 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import LoadingSpinner from './LoadingSpinner';
 import NotePopup from './NotePopup';
+import { API_BASE_URL } from '../config';
+
 
 type NoteMap = Record<string, string>;
 
@@ -63,10 +65,17 @@ const BlogPost: React.FC = () => {
   useEffect(() => {
     const fetchMd = async () => {
       try {
-        const res = await fetch(`/api/blog/${slug}`);
+        const res = await fetch(`${API_BASE_URL}/api/blog/${slug}`);
         if (!res.ok) throw new Error('Not found');
+
         const text = await res.text();
-        setContent(text);
+
+        const updatedText = text.replaceAll(
+          '](/api/images/',
+          `](${API_BASE_URL}/api/images/`
+        );
+
+        setContent(updatedText);
       } catch {
         setContent('# Post not found');
       } finally {

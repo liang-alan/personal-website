@@ -1,3 +1,13 @@
+interface Work {
+  company: string;
+  title: string;
+  location?: string;
+  start: string;
+  end?: string;
+  responsibilities: string[];
+  image?: string;
+}
+
 interface Project {
   id?: string;
   title: string;
@@ -19,6 +29,7 @@ interface Profile {
   };
   projects: Project[];
   introImage?: string;
+  work: Work[];
 }
 
-export type { Profile, Project };
+export type { Profile, Project, Work };
