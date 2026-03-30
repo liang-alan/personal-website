@@ -4,10 +4,13 @@ import ProjectCard from './ProjectCard';
 import { Project } from '../types';
 import LoadingSpinner from './LoadingSpinner';
 
+const PROJECTS_PER_PAGE = 6;
+
 const ProjectsSection: React.FC = () => {
   const { profile, loading } = useProfile();
   const [tagInput, setTagInput] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(PROJECTS_PER_PAGE);
 
   const projects: Project[] = profile?.projects || [];
 
@@ -25,6 +28,10 @@ const ProjectsSection: React.FC = () => {
     });
   }, [projects, normalizedSelectedTags]);
 
+  const visibleProjects = useMemo(() => {
+    return filteredProjects.slice(0, visibleCount);
+  }, [filteredProjects, visibleCount]);
+
   const addTag = (rawTag: string) => {
     const newTag = rawTag.trim();
     if (!newTag) return;
@@ -39,12 +46,14 @@ const ProjectsSection: React.FC = () => {
 
     setSelectedTags((prev) => [...prev, newTag]);
     setTagInput('');
+    setVisibleCount(PROJECTS_PER_PAGE);
   };
 
   const removeTag = (tagToRemove: string) => {
     setSelectedTags((prev) =>
       prev.filter((tag) => tag.toLowerCase() !== tagToRemove.toLowerCase())
     );
+    setVisibleCount(PROJECTS_PER_PAGE);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -68,6 +77,10 @@ const ProjectsSection: React.FC = () => {
     } else {
       addTag(tag);
     }
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + PROJECTS_PER_PAGE);
   };
 
   if (loading) return <LoadingSpinner />;
@@ -105,21 +118,35 @@ const ProjectsSection: React.FC = () => {
       {filteredProjects.length === 0 ? (
         <p>No projects match those tags.</p>
       ) : (
-        <div className="projects-grid">
-          {filteredProjects.map((p) => (
-            <ProjectCard
-              key={p.link || p.title}
-              title={p.title}
-              date={p.date}
-              description={p.description}
-              tags={p.tags || []}
-              image={p.image}
-              link={p.link || ""}
-              onTagClick={handleTagClick}
-              activeTags={selectedTags}
-            />
-          ))}
-        </div>
+        <>
+          <div className="projects-grid">
+            {visibleProjects.map((p) => (
+              <ProjectCard
+                key={p.link || p.title}
+                title={p.title}
+                date={p.date}
+                description={p.description}
+                tags={p.tags || []}
+                image={p.image}
+                link={p.link || ''}
+                onTagClick={handleTagClick}
+                activeTags={selectedTags}
+              />
+            ))}
+          </div>
+
+          {visibleCount < filteredProjects.length && (
+            <div className="projects-load-more">
+              <button
+                type="button"
+                className="load-more-button"
+                onClick={handleLoadMore}
+              >
+                Load more
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
