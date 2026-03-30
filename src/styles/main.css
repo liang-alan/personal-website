@@ -5,7 +5,9 @@ html {
 }
 :root {
     /* mellow dark blue background and softer surfaces */
-    --bg: #272757; /* requested page background */
+    --bg: #272757; /* fallback solid background */
+    --bg-start: #387fa2; /* brighter top color (updated on scroll) */
+    --bg-end: #272757; /* darker bottom color */
     --surface: #2f2d54; /* slightly lighter surface for cards/containers */
     --muted: #9aa3bf;
     --primary: #3b3a66; /* mellower header start */
@@ -19,8 +21,10 @@ body {
     font-family: 'DM Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     margin: 0;
     padding: 0;
-    background-color: var(--bg);
+    /* page background is a vertical gradient driven by CSS vars updated on scroll */
+    background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
     color: #e6eefb; /* light text for dark background */
+    transition: background 220ms linear;
 }
 
 html {
@@ -28,8 +32,8 @@ html {
 }
 
 header {
-    background: linear-gradient(180deg, #45416f, #2b2850);
-    color: #fff;
+    /* translucent frosted header so it blends with the page gradient */
+    color: #e6eefb;
     height: var(--header-height);
     padding: 0 24px;
     display: flex;
@@ -38,6 +42,15 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+/* hide header on downward scroll; reveal on upward scroll */
+header {
+    transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+}
+header.hidden {
+    transform: translateY(calc(-1 * var(--header-height) - 6px));
+    opacity: 0; /* optional small fade */
 }
 
 header h1 a {
@@ -125,7 +138,13 @@ nav a.active {
 .blog-tile .date { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px }
 .blog-tile .excerpt { color: #e6eefb }
 
-.blog-detail { padding: 28px }
+.blog-detail {
+    padding: 28px;
+    /* Ensure short markdown blog posts still push footer to the bottom of the viewport.
+       Subtract header + footer allowance; adjust 120px if your footer is taller. */
+    min-height: calc(100vh - var(--header-height) - 120px);
+    box-sizing: border-box;
+}
 
 .back-arrow {
     display: inline-flex;
@@ -144,6 +163,29 @@ nav a.active {
 
 .work-experience .job { margin-bottom: 16px }
 .work-experience .dates { font-size: 0.9rem; color: var(--muted) }
+
+/* Work tiles: full-width cards that expand to reveal bullet points */
+.work-tiles { display: grid; gap: 14px }
+.work-tile {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 14px;
+    border-radius: 10px;
+    transition: box-shadow 200ms ease, background-color 160ms ease, transform 160ms ease;
+}
+.work-tile:hover { box-shadow: 0 10px 28px rgba(6,8,30,0.28); transform: translateY(-4px) }
+.work-tile-header { display:flex; align-items:center; justify-content:space-between; gap:12px; cursor: pointer }
+.work-tile-left { display:flex; align-items:center; gap:12px }
+.work-avatar { width:56px; height:56px; object-fit:cover; border-radius: 8px; flex: 0 0 56px }
+.work-tile-header h3 { margin: 0 }
+.work-tile-header .dates { color: var(--muted); font-size: 0.9rem }
+.toggle-arrow { background: transparent; border: none; color: inherit; display:flex; align-items:center; justify-content:center; padding:6px; border-radius:6px }
+.toggle-arrow svg { transition: transform 240ms cubic-bezier(.2,.9,.2,1) }
+.work-tile.open .toggle-arrow svg { transform: rotate(180deg) }
+.work-tile-body { max-height: 0; overflow: hidden; transition: max-height 320ms cubic-bezier(.2,.9,.2,1), padding 220ms ease }
+.work-tile.open .work-tile-body { max-height: 400px; padding-top: 12px }
+.work-tile-body ul { margin: 0; padding-left: 18px }
+.work-tile-body li { margin-bottom: 8px }
 
 .project-card {
     border: 1px solid rgba(255,255,255,0.04);
@@ -165,14 +207,36 @@ nav a.active {
     margin-bottom: 12px;
 }
 
+/* ensure contact section is tall enough so header active state works when scrolled to */
+#contact {
+    min-height: 420px;
+}
+
+/* subtle darken on hover to indicate active state without layout shift */
+.project-card, .blog-tile {
+    transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.project-card:hover, .blog-tile:hover {
+    background: rgba(255,255,255,0.06); /* slightly darker */
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 8px 22px rgba(6,8,30,0.35);
+}
+.project-card:focus-within, .blog-tile:focus {
+    background: rgba(255,255,255,0.055);
+    border-color: rgba(255,255,255,0.07);
+    outline: none;
+    box-shadow: 0 6px 18px rgba(6,8,30,0.32);
+}
+
 .portfolio-grid { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start }
 .portfolio-image img { width: 100%; height: auto; border-radius: 8px }
 
 footer {
     text-align: center;
     padding: 18px 0;
-    background: linear-gradient(180deg, #232140, #2c2a4a);
-    color: #fff;
+    /* translucent footer that visually ties into the gradient background */
+    /* background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.16)); */
+    color: #e6eefb;
     position: relative;
     bottom: 0;
     width: 100%;
@@ -233,3 +297,41 @@ html, body { overscroll-behavior-y: none }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* end spinner */
+
+/* Lazy section mount animation */
+.lazy-section {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 420ms cubic-bezier(.2,.9,.2,1), transform 420ms cubic-bezier(.2,.9,.2,1);
+}
+.lazy-section.mounted {
+    opacity: 1;
+    transform: translateY(0);
+}
+.lazy-section.placeholder { min-height: 120px; display: block }
+
+/* Staggered children reveal for projects and blog tiles */
+.projects-grid .project-card,
+.blog-grid .blog-tile {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 420ms cubic-bezier(.2,.9,.2,1), transform 420ms cubic-bezier(.2,.9,.2,1);
+}
+.lazy-section.mounted .projects-grid .project-card,
+.lazy-section.mounted .blog-grid .blog-tile {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add stagger using transition-delay via nth-child */
+.lazy-section.mounted .projects-grid .project-card:nth-child(1) { transition-delay: 60ms }
+.lazy-section.mounted .projects-grid .project-card:nth-child(2) { transition-delay: 120ms }
+.lazy-section.mounted .projects-grid .project-card:nth-child(3) { transition-delay: 180ms }
+.lazy-section.mounted .projects-grid .project-card:nth-child(4) { transition-delay: 240ms }
+.lazy-section.mounted .projects-grid .project-card:nth-child(5) { transition-delay: 300ms }
+
+.lazy-section.mounted .blog-grid .blog-tile:nth-child(1) { transition-delay: 60ms }
+.lazy-section.mounted .blog-grid .blog-tile:nth-child(2) { transition-delay: 120ms }
+.lazy-section.mounted .blog-grid .blog-tile:nth-child(3) { transition-delay: 180ms }
+.lazy-section.mounted .blog-grid .blog-tile:nth-child(4) { transition-delay: 240ms }
+.lazy-section.mounted .blog-grid .blog-tile:nth-child(5) { transition-delay: 300ms }

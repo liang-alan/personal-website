@@ -1,38 +1,6 @@
 # Personal Portfolio
 
-This is a single-page personal portfolio project built with React and Vite. It allows users to showcase their projects and personal information, which can be edited and fetched from a server.
-
-## Project Structure
-
-```
-personal-website
-├── src
-│   ├── main.tsx
-│   ├── App.tsx
-│   ├── index.html
-│   ├── components
-│   │   ├── Header.tsx
-│   │   ├── Portfolio.tsx
-│   │   ├── ProjectCard.tsx
-│   │   ├── Editor.tsx
-│   │   └── Footer.tsx
-│   ├── api
-│   │   └── client.ts
-│   ├── hooks
-│   │   └── useProfile.ts
-│   ├── styles
-│   │   └── main.css
-│   └── types
-│       └── index.ts
-├── server
-│   ├── index.ts
-│   └── data
-│       └── profile.json
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
-```
+This is a personal portfolio project built with React and Vite.
 
 ## Getting Started
 
@@ -46,7 +14,7 @@ personal-website
 1. Clone the repository:
 
    ```
-   git clone <repository-url>
+   git clone https://github.com/liang-alan/personal-website.git
    ```
 
 2. Navigate to the project directory:

@@ -2,7 +2,7 @@
   "name": "Alan Liang",
   "title": "Student",
   "description": "I am a undergraduate student at the University of Wisconsin-Madison pursuing majors in Computer Science and Enviornmental Studies with certificates in Data Science and Game Design. I am excited to learn new skills and apply them to tackle world problems. I'm passionate about fullstack development, AI governance, and environmental justice. Let's connect and explore the different potentials of technology within our society!",
-  "introImage": "/api/images/intro-placeholder.svg",
+  "introImage": "/api/images/profile.png",
   "email": "alanliang905@gmail.com",
   "socialMedia": {
     "linkedin": "https://www.linkedin.com/in/alan-liang5/",
@@ -27,34 +27,44 @@
   ,
   "work": [
     {
-      "company": "Acme Corp",
-      "title": "Senior Web Developer",
-      "start": "Jan 2020",
-      "end": "Dec 2022",
-      "description": "Built and maintained customer-facing web applications."
+      "company": "Amazon",
+      "title": "Software Development Intern",
+      "start": "May 2025",
+      "end": "August 2025",
+      "responsibilities": [
+        "Migrated an outdated service to a modern platform using React, TypeScript, and Express",
+        "Cut monthly support tickets by 50% by implementing new features to reduce manual workload",
+        "Delivered a full-stack, end-to-end project from design to production in an agile environment",
+        "Implemented comprehensive unit tests, achieving 95%+ test coverage to ensure code quality and stability",
+        "Set up user metrics using AWS Cloudwatch to track adoption and identify bottlenecks"
+      ]
+  ,
+  "image": "/api/images/amazon.png"
     },
     {
       "company": "Startup Inc",
       "title": "Frontend Engineer",
       "start": "Mar 2018",
       "end": "Dec 2019",
-      "description": "Implemented responsive UIs and worked on performance optimizations."
+      "responsibilities": [
+        "Implemented responsive UIs and worked on performance optimizations."
+      ]
+  ,
+  "image": "/api/images/project-2.svg"
     }
   ],
   "blogs": [
     {
-      "slug": "introducing-my-portfolio",
-      "title": "Introducing my portfolio",
-      "date": "2024-05-10",
-      "excerpt": "A short intro to my work and this site.",
-      "content": "<p>This is the full blog post content for introducing my portfolio.</p>"
+      "slug": "reflection-on-computer-science-culture-among-students",
+      "title": "Reflection on computer science culture among students",
+      "date": "2025-08-10",
+      "excerpt": "Personal reflection on my experience in the bay area as an intern."
     },
     {
-      "slug": "react-tips",
-      "title": "React Tips and Tricks",
-      "date": "2024-07-01",
-      "excerpt": "Some useful React patterns I use every day.",
-      "content": "<p>Full post about React tips and tricks.</p>"
+      "slug": "bombs-and-bikinis",
+      "title": "Bombs and Bikinis: The Story of Nuclear Testing in the Pacific",
+      "date": "2023-12-19",
+      "excerpt": "History paper I wrote for HIST460 at UW-Madison. Was nominated for undergraduate history writing award"
     }
   ]
 }

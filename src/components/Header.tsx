@@ -10,8 +10,11 @@ const links = [
 
 const Header: React.FC = () => {
     const [active, setActive] = useState<string>('portfolio');
+    const [hidden, setHidden] = useState<boolean>(false);
 
     const debounceTimer = useRef<number | null>(null);
+    const lastY = useRef<number>(typeof window !== 'undefined' ? window.scrollY : 0);
+    const ticking = useRef<boolean>(false);
 
     useEffect(() => {
         const sections = Array.from(document.querySelectorAll('main section[id]')) as HTMLElement[];
@@ -60,12 +63,34 @@ const Header: React.FC = () => {
         window.addEventListener('hashchange', debounced);
         window.addEventListener('popstate', debounced);
 
+        // keep header hide/show logic separate and lightweight
+        const onDirScroll = () => {
+            if (ticking.current) return;
+            ticking.current = true;
+            requestAnimationFrame(() => {
+                const y = window.scrollY || document.documentElement.scrollTop;
+                const delta = y - lastY.current;
+                // small threshold to avoid jitter
+                if (Math.abs(delta) > 8) {
+                    if (delta > 0 && y > 80) {
+                        setHidden(true);
+                    } else if (delta < 0) {
+                        setHidden(false);
+                    }
+                    lastY.current = y;
+                }
+                ticking.current = false;
+            });
+        };
+        window.addEventListener('scroll', onDirScroll, { passive: true });
+
         return () => {
             observer.disconnect();
             window.removeEventListener('scroll', debounced);
             window.removeEventListener('hashchange', debounced);
             window.removeEventListener('popstate', debounced);
             if (debounceTimer.current) window.clearTimeout(debounceTimer.current);
+            window.removeEventListener('scroll', onDirScroll as EventListener);
         };
     }, []);
 
@@ -125,7 +150,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header>
+        <header className={hidden ? 'hidden' : ''}>
             <h1><a href="#top" onClick={onTitleClick}>Alan Liang</a></h1>
             <nav>
                 <ul>
