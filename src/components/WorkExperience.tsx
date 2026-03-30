@@ -1,155 +1,59 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import useProfile from '../hooks/useProfile';
-import ProjectCard from './ProjectCard';
-import { Project } from '../types';
 import LoadingSpinner from './LoadingSpinner';
 
-const PROJECTS_PER_PAGE = 6;
-
-const ProjectsSection: React.FC = () => {
+const WorkExperience: React.FC = () => {
   const { profile, loading } = useProfile();
-  const [tagInput, setTagInput] = useState('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [visibleCount, setVisibleCount] = useState(PROJECTS_PER_PAGE);
-
-  const projects: Project[] = profile?.projects || [];
-
-  const normalizedSelectedTags = selectedTags.map((tag) => tag.toLowerCase());
-
-  const filteredProjects = useMemo(() => {
-    if (normalizedSelectedTags.length === 0) return projects;
-
-    return projects.filter((project) => {
-      const projectTags = (project.tags || []).map((tag) => tag.toLowerCase());
-
-      return normalizedSelectedTags.every((selectedTag) =>
-        projectTags.some((tag) => tag.includes(selectedTag))
-      );
-    });
-  }, [projects, normalizedSelectedTags]);
-
-  const visibleProjects = useMemo(() => {
-    return filteredProjects.slice(0, visibleCount);
-  }, [filteredProjects, visibleCount]);
-
-  const addTag = (rawTag: string) => {
-    const newTag = rawTag.trim();
-    if (!newTag) return;
-
-    const alreadyExists = selectedTags.some(
-      (tag) => tag.toLowerCase() === newTag.toLowerCase()
-    );
-    if (alreadyExists) {
-      setTagInput('');
-      return;
-    }
-
-    setSelectedTags((prev) => [...prev, newTag]);
-    setTagInput('');
-    setVisibleCount(PROJECTS_PER_PAGE);
-  };
-
-  const removeTag = (tagToRemove: string) => {
-    setSelectedTags((prev) =>
-      prev.filter((tag) => tag.toLowerCase() !== tagToRemove.toLowerCase())
-    );
-    setVisibleCount(PROJECTS_PER_PAGE);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      addTag(tagInput);
-    }
-
-    if (e.key === 'Backspace' && !tagInput.trim() && selectedTags.length > 0) {
-      removeTag(selectedTags[selectedTags.length - 1]);
-    }
-  };
-
-  const handleTagClick = (tag: string) => {
-    const exists = selectedTags.some(
-      (selected) => selected.toLowerCase() === tag.toLowerCase()
-    );
-
-    if (exists) {
-      removeTag(tag);
-    } else {
-      addTag(tag);
-    }
-  };
-
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + PROJECTS_PER_PAGE);
-  };
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (loading) return <LoadingSpinner />;
 
+  const work = (profile as any)?.work || [];
+
+  const toggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
+
   return (
-    <div className="projects container">
-      <h2>Projects</h2>
+    <div className="work-experience container">
+      <h2>Work Experience</h2>
+      {work.length === 0 && <p>No work experience added yet.</p>}
 
-      <div className="projects-search">
-        <div className="projects-search-box">
-          {selectedTags.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              className="selected-tag-chip"
-              onClick={() => removeTag(tag)}
-              aria-label={`Remove tag ${tag}`}
-            >
-              {tag} <span aria-hidden="true">×</span>
-            </button>
-          ))}
-
-          <input
-            type="text"
-            value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type a tag and press Enter..."
-            aria-label="Search projects by tags"
-            className="projects-search-input"
-          />
-        </div>
+      <div className="work-tiles">
+        {work.map((job: any, i: number) => {
+          const opened = openIndex === i;
+          const responsibilities: string[] = job.responsibilities || (job.description ? [job.description] : []);
+          return (
+            <article key={job.company + i} className={`work-tile ${opened ? 'open' : ''}`}>
+              <header className="work-tile-header" onClick={() => toggle(i)}>
+                <div className="work-tile-left">
+                  {job.image && (
+                    <img src={job.image} alt={`${job.company} logo`} className="work-avatar" />
+                  )}
+                  <div>
+                    <h3>{job.title}</h3>
+                    <div className="dates">{job.company} • {job.start} — {job.end || 'Present'}</div>
+                  </div>
+                </div>
+                <button className="toggle-arrow" aria-expanded={opened} aria-label={opened ? 'Collapse' : 'Expand'}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </header>
+              <div className="work-tile-body" aria-hidden={!opened}>
+                <ul>
+                  {responsibilities.map((r, idx) => (
+                    <li key={idx}>{r}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          );
+        })}
       </div>
-
-      {filteredProjects.length === 0 ? (
-        <p>No projects match those tags.</p>
-      ) : (
-        <>
-          <div className="projects-grid">
-            {visibleProjects.map((p) => (
-              <ProjectCard
-                key={p.link || p.title}
-                title={p.title}
-                date={p.date}
-                description={p.description}
-                tags={p.tags || []}
-                image={p.image}
-                link={p.link || ''}
-                onTagClick={handleTagClick}
-                activeTags={selectedTags}
-              />
-            ))}
-          </div>
-
-          {visibleCount < filteredProjects.length && (
-            <div className="projects-load-more">
-              <button
-                type="button"
-                className="load-more-button"
-                onClick={handleLoadMore}
-              >
-                Load more
-              </button>
-            </div>
-          )}
-        </>
-      )}
     </div>
   );
 };
 
-export default ProjectsSection;
+export default WorkExperience;
