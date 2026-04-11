@@ -32,6 +32,7 @@ const WorkExperience: React.FC = () => {
                   )}
                   <div>
                     <h3>{job.title}</h3>
+                    <div className="dates">{job.location || ''}</div>
                     <div className="dates">{job.company} • {job.start} — {job.end || 'Present'}</div>
                   </div>
                 </div>

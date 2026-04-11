@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
 
     return (
         <footer>
-            <p>&copy; {new Date().getFullYear()} {profile?.name || 'Your Name'}. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {profile?.name || 'Alan Liang'}. All rights reserved.</p>
             <div className="social-icons">
                 <a href={github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                     <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
