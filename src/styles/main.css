@@ -607,6 +607,13 @@ a:hover {
   margin: 1rem 0 1.5rem;
 }
 
+.projects-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
 .projects-search-box {
   display: flex;
   flex-wrap: wrap;
@@ -618,6 +625,79 @@ a:hover {
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.08);
+}
+
+.projects-sort {
+  position: relative;
+}
+
+.projects-sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.8rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.projects-sort-button:hover,
+.projects-sort-button.open {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.projects-sort-button svg {
+  transition: transform 0.2s ease;
+}
+
+.projects-sort-button.open svg {
+  transform: rotate(180deg);
+}
+
+.projects-sort-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 220px;
+  padding: 0.4rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(31, 37, 77, 0.98);
+  box-shadow: 0 14px 28px rgba(6, 8, 30, 0.36);
+  z-index: 20;
+}
+
+.projects-sort-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0.8rem;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.projects-sort-option:hover,
+.projects-sort-option.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.projects-sort-label {
+  margin: -0.75rem 0 1.25rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
 }
 
 .projects-search-input {
@@ -725,5 +805,17 @@ a:hover {
     .loading-arcade-target {
         width: 48px;
         height: 48px;
+    }
+
+    .projects-search-box,
+    .projects-sort,
+    .projects-sort-button {
+        width: 100%;
+    }
+
+    .projects-sort-menu {
+        left: 0;
+        right: 0;
+        min-width: 0;
     }
 }
