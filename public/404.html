@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Personal Website</title>
+    <script>
+      (function redirectToSpa(location) {
+        var repoBase = '/personal-website';
+        var path = location.pathname;
+        var normalizedPath = path.indexOf(repoBase) === 0 ? path.slice(repoBase.length) : path;
+        var query = location.search ? '&' + location.search.slice(1).replace(/&/g, '~and~') : '';
+        var redirectTarget = repoBase + '/?' + normalizedPath.replace(/^\//, '/') + query + location.hash;
+
+        window.location.replace(redirectTarget);
+      })(window.location);
+    </script>
+  </head>
+  <body></body>
+</html>
