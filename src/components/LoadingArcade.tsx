@@ -20,8 +20,8 @@ const LoadingArcade: React.FC<LoadingArcadeProps> = ({ mode = 'loading' }) => {
   const [position, setPosition] = useState<Position>(() => createRandomPosition());
   const isLoadingMode = mode === 'loading';
 
-  const tier = Math.min(6, Math.floor(score / 4) + 1);
-  const hopDelay = Math.max(430, 1100 - (tier - 1) * 110);
+  const tier = Math.min(7, Math.floor(score / 4) + 1);
+  const hopDelay = Math.max(440, 1100 - (tier - 1) * 110);
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -40,8 +40,10 @@ const LoadingArcade: React.FC<LoadingArcadeProps> = ({ mode = 'loading' }) => {
   }, [best, score]);
 
   const paceLabel = useMemo(() => {
-    if (hopDelay <= 540) return 'Fast'
-    if (hopDelay <= 760) return 'Faster';
+    console.log(`Hop delay : ${hopDelay}`)
+    if (hopDelay <= 440) return 'TURBO';
+    else if (hopDelay <= 550) return 'Fastest';
+    else if (hopDelay <= 880) return 'Faster';
     return 'Slow';
   }, [hopDelay]);
 
