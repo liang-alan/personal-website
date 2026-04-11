@@ -7,6 +7,7 @@ import WorkExperience from './components/WorkExperience';
 import ProjectsSection from './components/ProjectsSection';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
+import LoadingArcade from './components/LoadingArcade';
 import LazySection from './components/LazySection';
 // About intentionally omitted; intro/portfolio sits at top of the page
 import Contact from './components/Contact';
@@ -87,6 +88,7 @@ const App: React.FC = () => {
               }
             />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/arcade" element={<LoadingArcade mode="play" />} />
           </Routes>
         </main>
         <BackToTop />

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProfile } from '../api/client';
-import ProjectCard from './ProjectCard';
-import { Profile, Project } from '../types';
-import LoadingSpinner from './LoadingSpinner';
+import { Profile } from '../types';
+import LoadingArcade from './LoadingArcade';
 
 const Portfolio = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -25,7 +24,7 @@ const Portfolio = () => {
   }, []);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingArcade />;
   }
 
   if (error) {

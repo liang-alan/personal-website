@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import LoadingSpinner from './LoadingSpinner';
 
 interface LazySectionProps {
   id: string;
@@ -8,10 +7,15 @@ interface LazySectionProps {
   children: React.ReactNode;
 }
 
-// Default: wait until ~15% of the section is visible (and allow a slight bottom offset)
-const LazySection: React.FC<LazySectionProps> = ({ id, rootMargin = '0px 0px -20% 0px', threshold = 0.15, children }) => {
+// Reveal each section once it approaches the viewport.
+const LazySection: React.FC<LazySectionProps> = ({
+  id,
+  rootMargin = '0px 0px -12% 0px',
+  threshold = 0.2,
+  children,
+}) => {
   const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -20,9 +24,10 @@ const LazySection: React.FC<LazySectionProps> = ({ id, rootMargin = '0px 0px -20
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // require some intersectionRatio (threshold) to reduce early mounts
-          if (entry.isIntersecting && entry.intersectionRatio >= (Array.isArray(threshold) ? (threshold[0] as number) : (threshold as number))) {
-            setVisible(true);
+          const thresholdValue = Array.isArray(threshold) ? threshold[0] : threshold;
+
+          if (entry.isIntersecting && entry.intersectionRatio >= thresholdValue) {
+            setIsRevealed(true);
             observer.disconnect();
           }
         });
@@ -35,8 +40,10 @@ const LazySection: React.FC<LazySectionProps> = ({ id, rootMargin = '0px 0px -20
   }, [rootMargin, threshold]);
 
   return (
-    <section id={id} ref={ref} className={`lazy-section ${visible ? 'mounted' : 'placeholder'}`}>
-      {visible ? children : <div style={{ padding: '48px 0' }}><LoadingSpinner /></div>}
+    <section id={id} ref={ref} className="lazy-section">
+      <div className={`lazy-section-content ${isRevealed ? 'revealed' : ''}`}>
+        {children}
+      </div>
     </section>
   );
 };

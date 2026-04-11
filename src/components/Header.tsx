@@ -98,7 +98,7 @@ const Header: React.FC = () => {
     const navigate = useNavigate();
 
     const onTitleClick = (e: React.MouseEvent) => {
-        // if we're on a blog page and have a lastScroll, navigate back to root and restore
+        // if we're on a detail page and have a lastScroll, navigate back to root and restore
         if (location.pathname.startsWith('/blog')) {
             e.preventDefault();
             try {
@@ -118,11 +118,16 @@ const Header: React.FC = () => {
             navigate('/');
             return;
         }
+
+        if (location.pathname !== '/') {
+            e.preventDefault();
+            navigate('/');
+        }
     };
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-        // if on a blog page, navigate back to root and then set the hash / scroll
-        if (location.pathname.startsWith('/blog')) {
+        // if off the homepage, navigate back to root and then set the hash / scroll
+        if (location.pathname !== '/') {
             e.preventDefault();
             try {
                 // store lastScroll so BlogPost back can still restore if needed
