@@ -8,6 +8,10 @@ import cors from 'cors';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const serverRoot = [
+    __dirname,
+    path.resolve(__dirname, '..', '..', 'server'),
+].find((candidate) => fs.existsSync(path.join(candidate, 'data'))) ?? __dirname;
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5001;
@@ -23,10 +27,10 @@ app.use(cors({
 }));
 
 // serve images from data/images at /api/images
-app.use('/api/images', express.static(path.join(__dirname, 'data', 'images')));
+app.use('/api/images', express.static(path.join(serverRoot, 'data', 'images')));
 
 app.get('/api/profile', (req: express.Request, res: express.Response) => {
-    const profilePath = path.join(__dirname, 'data', 'profile.json');
+    const profilePath = path.join(serverRoot, 'data', 'profile.json');
     fs.readFile(profilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to read profile data' });
@@ -37,7 +41,7 @@ app.get('/api/profile', (req: express.Request, res: express.Response) => {
 
 app.get('/api/blog/:slug', (req: express.Request, res: express.Response) => {
     const slug = req.params.slug;
-    const blogPath = path.join(__dirname, 'data', 'blogs', `${slug}.md`);
+    const blogPath = path.join(serverRoot, 'data', 'blogs', `${slug}.md`);
     fs.readFile(blogPath, 'utf8', (err, data) => {
         if (err) {
             return res.status(404).json({ error: 'Blog not found' });
