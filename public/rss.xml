@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alan Liang Blog</title>
+    <link>https://liang-alan.github.io/personal-website</link>
+    <description>I am a undergraduate student at the University of Wisconsin-Madison pursuing majors in Computer Science and Enviornmental Studies with a certificate in Data Science. I am excited to learn new skills and apply them to tackle world problems. I&apos;m passionate about fullstack development, AI governance, and environmental justice. Let&apos;s connect and explore the different potentials of technology within our society!</description>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Apr 2026 17:04:33 GMT</lastBuildDate>
+    <atom:link href="https://liang-alan.github.io/personal-website/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reflection on computer science culture among students</title>
+      <link>https://liang-alan.github.io/personal-website/blog/reflection-on-computer-science-culture-among-students</link>
+      <guid isPermaLink="true">https://liang-alan.github.io/personal-website/blog/reflection-on-computer-science-culture-among-students</guid>
+      <pubDate>Sun, 10 Aug 2025 00:00:00 GMT</pubDate>
+      <description>Personal reflection on my experience in the bay area as an intern.</description>
+      <content:encoded><![CDATA[<p>Personal reflection on my experience in the bay area as an intern.</p><p><a href="https://liang-alan.github.io/personal-website/blog/reflection-on-computer-science-culture-among-students">Read the full post</a></p>]]></content:encoded>
+    </item>
+    <item>
+      <title>Bombs and Bikinis: The Story of Nuclear Testing in the Pacific</title>
+      <link>https://liang-alan.github.io/personal-website/blog/bombs-and-bikinis</link>
+      <guid isPermaLink="true">https://liang-alan.github.io/personal-website/blog/bombs-and-bikinis</guid>
+      <pubDate>Tue, 19 Dec 2023 00:00:00 GMT</pubDate>
+      <description>History paper I wrote for HIST460 at UW-Madison. Was nominated for undergraduate history writing award</description>
+      <content:encoded><![CDATA[<p>History paper I wrote for HIST460 at UW-Madison. Was nominated for undergraduate history writing award</p><p><a href="https://liang-alan.github.io/personal-website/blog/bombs-and-bikinis">Read the full post</a></p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>
