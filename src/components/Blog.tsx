@@ -3,6 +3,7 @@ import useProfile from '../hooks/useProfile';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
 import { trackEvent } from '../analytics';
+import NewsletterSignup from './NewsletterSignup';
 
 const BlogDetail: React.FC<{ slug: string }> = ({ slug }) => {
   const { profile } = useProfile();
@@ -28,6 +29,7 @@ const Blog: React.FC = () => {
   return (
     <div className="blog container">
       <h2>Blog</h2>
+      <NewsletterSignup />
       <div className="blog-grid">
         {posts.map((post: any) => (
           <Link
