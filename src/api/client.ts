@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { Profile } from '../types';
-import { API_BASE_URL } from '../config';
+import { IMAGE_BASE_URL, PROFILE_URL } from '../config';
 
-const API_URL = `${API_BASE_URL}/api/profile`;
 let cachedProfile: Profile | null = null;
 let profileRequest: Promise<Profile> | null = null;
 
@@ -14,7 +13,7 @@ const withApiBase = (path?: string): string | undefined => {
     }
 
     if (path.startsWith('/api/')) {
-        return `${API_BASE_URL}${path}`;
+        return `${IMAGE_BASE_URL}/${path.replace(/^\/api\/images\//, '')}`;
     }
 
     return path;
@@ -43,7 +42,7 @@ export const fetchProfile = async (): Promise<Profile> => {
     }
 
     profileRequest = axios
-        .get<Profile>(API_URL)
+        .get<Profile>(PROFILE_URL)
         .then((response) => {
             cachedProfile = normalizeProfile(response.data);
             return cachedProfile;

@@ -54,10 +54,10 @@ const LoadingArcade: React.FC<LoadingArcadeProps> = ({ mode = 'loading' }) => {
 
   const kickerText = isLoadingMode ? 'Loading profile' : 'Arcade mode';
   const headingText = isLoadingMode
-    ? 'Catch the ball while the server wakes up.'
+    ? 'Catch the ball while the profile loads.'
     : 'Catch the ball.';
   const bodyText = isLoadingMode
-    ? 'The backend server is waking up. Catch the ball while you wait! (This process takes ~45 seconds)'
+    ? 'The portfolio content is loading. Catch the ball while you wait!'
     : 'This is the same mini-game from the loading screen, but now you can play it whenever you want.';
 
   return (

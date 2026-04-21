@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import LoadingSpinner from './LoadingSpinner';
 import NotePopup from './NotePopup';
-import { API_BASE_URL } from '../config';
+import { getBlogUrl, IMAGE_BASE_URL } from '../config';
 
 
 type NoteMap = Record<string, string>;
@@ -65,14 +65,14 @@ const BlogPost: React.FC = () => {
   useEffect(() => {
     const fetchMd = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/blog/${slug}`);
+        const res = await fetch(getBlogUrl(slug || ''));
         if (!res.ok) throw new Error('Not found');
 
         const text = await res.text();
 
         const updatedText = text.replaceAll(
           '](/api/images/',
-          `](${API_BASE_URL}/api/images/`
+          `](${IMAGE_BASE_URL}/`
         );
 
         setContent(updatedText);
