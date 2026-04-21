@@ -37,8 +37,6 @@ The default content base is:
 VITE_CONTENT_BASE_URL=https://alanliang-portfolio.s3.us-east-2.amazonaws.com
 ```
 
-If you ever want to switch back to the old local Express server for testing, set `VITE_CONTENT_BASE_URL=` to an empty value and keep:
+## Content Source
 
-```env
-VITE_API_BASE_URL=http://localhost:5001
-```
+The repo keeps a local snapshot of the uploaded portfolio assets in [content](/c:/Users/alanl/Projects/personal-website/content) so blog posts, images, and `profile.json` still live alongside the codebase. S3 is the runtime source; the `content/` directory is your editable source copy before uploading changes back to the bucket.
