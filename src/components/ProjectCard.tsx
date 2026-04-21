@@ -9,6 +9,7 @@ type ProjectCardProps = {
   link?: string;
   onTagClick?: (tag: string) => void;
   activeTags?: string[];
+  onProjectOpen?: (details: { title: string; link?: string; tags: string[] }) => void;
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -20,9 +21,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   link,
   onTagClick,
   activeTags = [],
+  onProjectOpen,
 }) => {
   const handleCardClick = () => {
     if (link) {
+      onProjectOpen?.({ title, link, tags });
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };
@@ -32,6 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
+      onProjectOpen?.({ title, link, tags });
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   };

@@ -1,6 +1,7 @@
 import React from 'react';
 import useProfile from '../hooks/useProfile';
 import LoadingSpinner from './LoadingSpinner';
+import { trackEvent } from '../analytics';
 
 const Contact: React.FC = () => {
   const { profile, loading } = useProfile();
@@ -16,7 +17,10 @@ const Contact: React.FC = () => {
       <h2>Contact</h2>
       {email ? (
         <p>
-          You can reach me at <a href={`mailto:${email}`}>{email}</a>
+          You can reach me at <a href={`mailto:${email}`} onClick={() => trackEvent('contact_click', {
+            contact_type: 'email',
+            destination: email,
+          })}>{email}</a>
         </p>
       ) : (
         <p>Email not provided.</p>

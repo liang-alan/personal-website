@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Portfolio from './components/Portfolio';
 import Footer from './components/Footer';
@@ -12,6 +12,18 @@ import LazySection from './components/LazySection';
 // About intentionally omitted; intro/portfolio sits at top of the page
 import Contact from './components/Contact';
 import BackToTop from './components/BackToTop';
+import { trackPageView } from './analytics';
+
+const AnalyticsPageTracker: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = `${location.pathname}${location.search}${location.hash}`;
+    trackPageView(path);
+  }, [location.hash, location.pathname, location.search]);
+
+  return null;
+};
 
 const App: React.FC = () => {
   const rafRef = useRef<number | null>(null);
@@ -61,6 +73,7 @@ const App: React.FC = () => {
   }, []);
   return (
     <BrowserRouter basename="/personal-website/">
+      <AnalyticsPageTracker />
       <div id="top">
         <Header />
         <main>

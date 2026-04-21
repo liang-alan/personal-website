@@ -11,6 +11,7 @@ A personal portfolio website built with **React**, **Vite**, and static portfoli
 - React Router
 - Axios
 - React Markdown
+- Google Analytics
 
 ## Features
 

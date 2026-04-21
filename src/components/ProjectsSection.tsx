@@ -3,6 +3,7 @@ import useProfile from '../hooks/useProfile';
 import ProjectCard from './ProjectCard';
 import { Project } from '../types';
 import LoadingSpinner from './LoadingSpinner';
+import { trackEvent } from '../analytics';
 
 const PROJECTS_PER_PAGE = 6;
 const sortOptions = [
@@ -182,13 +183,27 @@ const ProjectsSection: React.FC = () => {
   };
 
   const handleLoadMore = () => {
+    trackEvent('load_more_projects', {
+      current_visible_count: visibleCount,
+      total_projects: sortedProjects.length,
+    });
     setVisibleCount((prev) => prev + PROJECTS_PER_PAGE);
   };
 
   const handleSortChange = (option: SortOption) => {
+    trackEvent('sort_projects', { sort_option: option });
     setSortBy(option);
     setSortMenuOpen(false);
     setVisibleCount(PROJECTS_PER_PAGE);
+  };
+
+  const handleProjectOpen = ({ title, link, tags }: { title: string; link?: string; tags: string[] }) => {
+    trackEvent('project_click', {
+      project_title: title,
+      project_link: link,
+      primary_tag: tags[0],
+      tag_count: tags.length,
+    });
   };
 
   if (loading) return <LoadingSpinner />;
@@ -281,6 +296,7 @@ const ProjectsSection: React.FC = () => {
                 link={p.link || ''}
                 onTagClick={handleTagClick}
                 activeTags={selectedTags}
+                onProjectOpen={handleProjectOpen}
               />
             ))}
           </div>

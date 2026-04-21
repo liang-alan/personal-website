@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useProfile from '../hooks/useProfile';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
+import { trackEvent } from '../analytics';
 
 const BlogDetail: React.FC<{ slug: string }> = ({ slug }) => {
   const { profile } = useProfile();
@@ -34,6 +35,10 @@ const Blog: React.FC = () => {
             className="blog-tile"
             to={`/blog/${post.slug}`}
             onClick={() => {
+              trackEvent('blog_click', {
+                blog_slug: post.slug,
+                blog_title: post.title,
+              });
               try {
                 sessionStorage.setItem(
                   'lastScroll',
