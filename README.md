@@ -29,14 +29,3 @@ This project defaults to:
 - **Frontend:** GitHub Pages
 - **Content:** Amazon S3
 
-For local development, the app also reads from the S3 bucket by default.
-
-The default content base is:
-
-```env
-VITE_CONTENT_BASE_URL=https://alanliang-portfolio.s3.us-east-2.amazonaws.com
-```
-
-## Content Source
-
-The repo keeps a local snapshot of the uploaded portfolio assets in [content](/c:/Users/alanl/Projects/personal-website/content) so blog posts, images, and `profile.json` still live alongside the codebase. S3 is the runtime source; the `content/` directory is your editable source copy before uploading changes back to the bucket.

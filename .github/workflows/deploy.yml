@@ -32,8 +32,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          VITE_API_BASE_URL: https://personal-website-s5a2.onrender.com
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
