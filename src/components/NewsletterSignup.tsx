@@ -1,15 +1,23 @@
 import React from 'react';
-import { FOLLOW_IT_FORM_ACTION, RSS_URL } from '../config';
+import { BUTTONDOWN_SUBSCRIBE_URL, BUTTONDOWN_USERNAME } from '../config';
 
 const NewsletterSignup: React.FC = () => {
-  if (!FOLLOW_IT_FORM_ACTION) {
+  if (!BUTTONDOWN_SUBSCRIBE_URL) {
     return (
       <div className="newsletter-panel">
         <p className="newsletter-kicker">Subscribe</p>
-        <h3>Get new blog posts by RSS</h3>
-        <p>Open the RSS feed in your favorite reader while the email signup is still being configured.</p>
-        <a className="newsletter-link" href={RSS_URL} target="_blank" rel="noopener noreferrer">
-          Open RSS feed
+        <h3>Turn on the mailing list</h3>
+        <p>
+          Add your Buttondown username in <code>VITE_BUTTONDOWN_USERNAME</code> to show the email signup
+          form on this page.
+        </p>
+        <a
+          className="newsletter-link"
+          href="https://buttondown.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open Buttondown
         </a>
       </div>
     );
@@ -17,14 +25,14 @@ const NewsletterSignup: React.FC = () => {
 
   return (
     <form
-      action={FOLLOW_IT_FORM_ACTION}
+      action={BUTTONDOWN_SUBSCRIBE_URL}
       method="post"
       target="_blank"
       className="newsletter-panel"
     >
       <p className="newsletter-kicker">Subscribe</p>
       <h3>Get new blog posts by email</h3>
-      <p>Follow along and get a notification whenever a new blog post goes live.</p>
+      <p>Join the list and I can send occasional updates manually whenever a new post is worth sharing.</p>
       <div className="newsletter-form-row">
         <input
           type="email"
@@ -33,19 +41,17 @@ const NewsletterSignup: React.FC = () => {
           aria-label="Email address"
           required
         />
+        <input type="hidden" value="1" name="embed" />
         <button type="submit">Subscribe</button>
       </div>
       <div className="newsletter-footer-row">
-        <a className="newsletter-link" href={RSS_URL} target="_blank" rel="noopener noreferrer">
-          Prefer RSS instead?
-        </a>
         <a
           className="newsletter-powered-by"
-          href="https://follow.it"
+          href={`https://buttondown.com/${BUTTONDOWN_USERNAME}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by follow.it
+          Powered by Buttondown
         </a>
       </div>
     </form>

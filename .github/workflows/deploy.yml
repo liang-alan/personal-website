@@ -34,6 +34,7 @@ jobs:
         run: npm run build
         env:
           VITE_GA_MEASUREMENT_ID: G-NDZ7PJGQ6Y
+          VITE_BUTTONDOWN_USERNAME: alanliang905
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

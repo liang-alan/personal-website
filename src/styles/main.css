@@ -196,9 +196,8 @@ nav a.active {
 
 .newsletter-footer-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .newsletter-powered-by {
