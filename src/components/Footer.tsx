@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useProfile from '../hooks/useProfile';
 import { trackEvent } from '../analytics';
+import NewsletterSignup from './NewsletterSignup';
 
 const Footer: React.FC = () => {
     const { profile } = useProfile();
@@ -11,6 +12,9 @@ const Footer: React.FC = () => {
 
     return (
         <footer>
+            <div className="footer-newsletter-wrap">
+                <NewsletterSignup variant="compact" />
+            </div>
             <p>&copy; {new Date().getFullYear()} {profile?.name || 'Alan Liang'}. All rights reserved.</p>
             <div className="social-icons">
                 <Link

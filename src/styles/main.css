@@ -138,6 +138,12 @@ nav a.active {
 .newsletter-panel h3 { margin: 0 0 10px 0 }
 .newsletter-panel p { margin: 0 0 12px 0 }
 
+.newsletter-panel-compact {
+    margin: 0 auto 18px auto;
+    max-width: 520px;
+    padding: 18px;
+}
+
 .newsletter-kicker {
     display: inline-block;
     margin-bottom: 10px;
@@ -354,6 +360,12 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+
+.footer-newsletter-wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px 8px 24px;
 }
 
 .back-to-top {

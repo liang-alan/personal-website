@@ -104,6 +104,19 @@ const BlogPost: React.FC = () => {
       // ignore
     }
 
+    try {
+      const referrer = document.referrer ? new URL(document.referrer) : null;
+      const currentOrigin = window.location.origin;
+
+      if (!referrer || referrer.origin !== currentOrigin) {
+        navigate('/', { replace: true });
+        return;
+      }
+    } catch {
+      navigate('/', { replace: true });
+      return;
+    }
+
     navigate(-1);
   };
 

@@ -1,12 +1,18 @@
 import React from 'react';
 import { BUTTONDOWN_SUBSCRIBE_URL, BUTTONDOWN_USERNAME } from '../config';
 
-const NewsletterSignup: React.FC = () => {
+type NewsletterSignupProps = {
+  variant?: 'default' | 'compact';
+};
+
+const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ variant = 'default' }) => {
+  const isCompact = variant === 'compact';
+
   if (!BUTTONDOWN_SUBSCRIBE_URL) {
     return (
-      <div className="newsletter-panel">
+      <div className={`newsletter-panel ${isCompact ? 'newsletter-panel-compact' : ''}`}>
         <p className="newsletter-kicker">Subscribe</p>
-        <h3>Turn on the mailing list</h3>
+        <h3>{isCompact ? 'Mailing list unavailable' : 'Turn on the mailing list'}</h3>
         <p>
           Add your Buttondown username in <code>VITE_BUTTONDOWN_USERNAME</code> to show the email signup
           form on this page.
@@ -28,16 +34,16 @@ const NewsletterSignup: React.FC = () => {
       action={BUTTONDOWN_SUBSCRIBE_URL}
       method="post"
       target="_blank"
-      className="newsletter-panel"
+      className={`newsletter-panel ${isCompact ? 'newsletter-panel-compact' : ''}`}
     >
       <p className="newsletter-kicker">Subscribe</p>
-      <h3>Get new blog posts by email</h3>
-      <p>Join the list and I can send occasional updates manually whenever a new post is worth sharing.</p>
+      <h3>{'Get post updates by email!'}</h3>
+      <p>Join the list to get notified when new posts arrive!</p>
       <div className="newsletter-form-row">
         <input
           type="email"
           name="email"
-          placeholder="you@example.com"
+          placeholder={isCompact ? 'Email address' : 'you@example.com'}
           aria-label="Email address"
           required
         />
