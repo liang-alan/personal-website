@@ -16,6 +16,7 @@ const isEnabled = (): boolean => Boolean(GA_MEASUREMENT_ID);
 const isLocalDebug = (): boolean =>
     typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const shouldTrack = (): boolean => isEnabled() && !isLocalDebug();
 const shouldLogDebug = (): boolean => isLocalDebug();
 
 const debugLog = (message: string, payload?: unknown): void => {
@@ -41,8 +42,8 @@ const getGtag = (): ((...args: unknown[]) => void) | null => {
     }
 
     if (!window.gtag) {
-        window.gtag = function gtag(...args: unknown[]) {
-            window.dataLayer.push(args);
+        window.gtag = function gtag() {
+            window.dataLayer.push(arguments);
         };
     }
 
@@ -56,6 +57,12 @@ const cleanParams = (params: AnalyticsParams = {}): Record<string, string | numb
 
 export const initializeAnalytics = (): void => {
     if (!isEnabled() || typeof document === 'undefined' || initialized) {
+        return;
+    }
+
+    if (!shouldTrack()) {
+        debugLog('analytics disabled on localhost');
+        initialized = true;
         return;
     }
 
@@ -86,6 +93,11 @@ export const initializeAnalytics = (): void => {
 };
 
 export const trackPageView = (path: string): void => {
+    if (!shouldTrack()) {
+        debugLog('page_view skipped on localhost', { path });
+        return;
+    }
+
     const gtag = getGtag();
     if (!gtag || typeof window === 'undefined' || typeof document === 'undefined') {
         return;
@@ -101,12 +113,18 @@ export const trackPageView = (path: string): void => {
 };
 
 export const trackEvent = (eventName: string, params?: AnalyticsParams): void => {
+    const cleanedParams = cleanParams(params);
+
+    if (!shouldTrack()) {
+        debugLog(`event:${eventName} skipped on localhost`, cleanedParams);
+        return;
+    }
+
     const gtag = getGtag();
     if (!gtag) {
         return;
     }
 
-    const cleanedParams = cleanParams(params);
     gtag('event', eventName, cleanedParams);
     debugLog(`event:${eventName}`, cleanedParams);
 };
