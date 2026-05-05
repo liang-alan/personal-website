@@ -10,6 +10,14 @@
   },
   "projects": [
     {
+      "title": "MuseScribe",
+      "date": "May 2026",
+      "description": "MuseScribe uses Spotify Basic Pitch and ByteDance Piano Transcription to turn MP3 files to sheet music",
+      "tags": ["Music","React","Typescript"],
+      "link": "https://github.com/liang-alan/musescribe",
+      "image": "/api/images/project/musescribe.jpg"
+    },
+    {
       "title": "Astrologic",
       "date": "December 2024",
       "description": "This is a mini puzzle game I made for a final group project about connecting stars to solve puzzles to create a symphony of stars!",
@@ -21,7 +29,7 @@
       "title": "SpotLight",
       "date": "July 2024",
       "description": "This 2nd place hack for the Empower 2.0 Hackathon SonicBids track aims to help musicians find a place for them to shine.",
-      "tags": ["React", "Firebase", "Hackathon", "Google Maps", "Javascript"],
+      "tags": ["React", "Firebase", "Hackathon", "Google Maps", "Javascript", "Music"],
       "link": "https://github.com/liang-alan/spotlight",
       "image": "/api/images/project/spotlight.jpeg"
     },
@@ -58,11 +66,7 @@
       "title": "Carcinisation",
       "date": "October 2023",
       "description": "Carcinisation is a resource management game I made in a one week game design sprint. This was my first exposure to game dev. Click on the github repo to play a demo!",
-      "tags": [
-        "Javascript",
-        "Game Dev",
-        "p5.js"
-      ],
+      "tags": ["Javascript","Game Dev","p5.js"],
       "link": "https://github.com/liang-alan/Colony2.0",
       "image": "/api/images/project/carcinisation.png"
     },
@@ -88,7 +92,7 @@
     {
       "company": "Amazon",
       "title": "Incoming Software Engineer I",
-      "location": "",
+      "location": "Seattle, WA",
       "start": "September 2026",
       "end": " ",
       "responsibilities": [
